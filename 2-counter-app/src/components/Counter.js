@@ -9,7 +9,7 @@ import {
 
 // useSelector hooku ile statik yazan 1 rakamını dinamik kullanabileceğiz.
 function Counter() {
-  const [amount, setAmount] = useState(3);
+  const [amount, setAmount] = useState();
 
   // buradaki value counterSlice.js e gidiyor. value ve name=counter
   const countValue = useSelector((state) => state.counter.value);
