@@ -4,11 +4,11 @@ import Error from "./Error";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  selectFilteredTodos,
   getTodoAsync,
   toggleTodoAsync,
   removeTodoAsync,
-} from "../redux/todos/todosSlice";
+} from "../redux/todos/services";
+import { selectFilteredTodos } from "../redux/todos/todosSlice";
 
 function TodoList() {
   const dispatch = useDispatch();

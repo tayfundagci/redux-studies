@@ -1,37 +1,10 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-export const getTodoAsync = createAsyncThunk(
-  "todos/getTodosAsync",
-  async () => {
-    const res = await axios("http://localhost:7000/todos");
-    return res.data;
-  }
-);
-
-export const addTodoAsync = createAsyncThunk(
-  "todos/addTodoAsync",
-  async (data) => {
-    const res = await axios.post("http://localhost:7000/todos", data);
-    return res.data;
-  }
-);
-
-export const toggleTodoAsync = createAsyncThunk(
-  "todos/toggleTodoAsync",
-  async ({ id, data }) => {
-    const res = await axios.patch(`http://localhost:7000/todos/${id}`, data);
-    return res.data;
-  }
-);
-
-export const removeTodoAsync = createAsyncThunk(
-  "todos/removeTodoAsync",
-  async (id) => {
-    await axios.delete(`http://localhost:7000/todos/${id}`);
-    return id;
-  }
-);
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  getTodoAsync,
+  addTodoAsync,
+  toggleTodoAsync,
+  removeTodoAsync,
+} from "./services";
 
 export const todosSlice = createSlice({
   name: "todos",
@@ -39,7 +12,7 @@ export const todosSlice = createSlice({
     items: [],
     isLoading: false,
     error: null,
-    activeFilter: "all",
+    activeFilter: localStorage.getItem("activeFilter"),
     addNewTodo: {
       isLoading: false,
       error: false,
