@@ -5,7 +5,8 @@ function Footer() {
     <footer className="info">
       <p>Click to edit a todo</p>
       <p>
-        Created by <a href="https://d12n.me/">Dmitry Sharabin</a>
+        Created by{" "}
+        <a href="https://linkedin.com/in/tayfundagci">Tayfun Dagci</a>
       </p>
       <p>
         Part of <a href="http://todomvc.com">TodoMVC</a>
@@ -14,4 +15,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default React.memo(Footer);
