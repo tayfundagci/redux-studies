@@ -1,15 +1,27 @@
 import { useEffect } from "react";
 
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
+
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCharacters } from "../../redux/charactersSlice";
 
 function Home() {
   const characters = useSelector((state) => state.characters.items);
+  const isLoading = useSelector((state) => state.characters.isLoading);
+  const error = useSelector((state) => state.characters.error);
+  const nextPage = useSelector((state) => state.characters.page);
+  const hasNextPage = useSelector((state) => state.characters.hasNextPage);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCharacters());
   }, [dispatch]);
+
+  if (error) {
+    return <Error message={error} />;
+  }
 
   return (
     <div>
@@ -30,10 +42,7 @@ function Home() {
               />
               <div className="card-body">
                 <h5 className="card-title text-info">{character.name}</h5>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
+                <p className="card-text">{character.nickname}</p>
                 <a href="/#" className="btn btn-info ">
                   Click for Details
                 </a>
@@ -41,6 +50,19 @@ function Home() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="text-center p-3">
+        {isLoading && <Loading />}
+        {hasNextPage && !isLoading && (
+          <button
+            onClick={() => dispatch(fetchCharacters(nextPage))}
+            className="btn btn-light text-center"
+          >
+            Load More ({nextPage})
+          </button>
+        )}
+        {!hasNextPage && <div>There is nothing to show.</div>}
       </div>
     </div>
   );
