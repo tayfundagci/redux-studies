@@ -6,9 +6,11 @@ import Error from "../../components/Error";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCharacters } from "../../redux/charactersSlice";
 
+import { Link } from "react-router-dom";
+
 function Home() {
   const characters = useSelector((state) => state.characters.items);
-  const isLoading = useSelector((state) => state.characters.isLoading);
+  const status = useSelector((state) => state.characters.status);
   const error = useSelector((state) => state.characters.error);
   const nextPage = useSelector((state) => state.characters.page);
   const hasNextPage = useSelector((state) => state.characters.hasNextPage);
@@ -16,10 +18,12 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCharacters());
-  }, [dispatch]);
+    if (status === "idle") {
+      dispatch(fetchCharacters());
+    }
+  }, [dispatch, status]);
 
-  if (error) {
+  if (status === "failed") {
     return <Error message={error} />;
   }
 
@@ -28,7 +32,7 @@ function Home() {
       <h1 className="text-center">Characters</h1>
 
       <div className="container">
-        <div className="row">
+        <div className="row" style={{ justifyContent: "center" }}>
           {characters.map((character) => (
             <div
               className="card bg-dark border border-2 p-2 m-3 text-center"
@@ -37,15 +41,18 @@ function Home() {
             >
               <img
                 src={character.img}
-                class="card-img-top"
+                className="card-img-top"
                 alt={character.name}
               />
               <div className="card-body">
                 <h5 className="card-title text-info">{character.name}</h5>
                 <p className="card-text">{character.nickname}</p>
-                <a href="/#" className="btn btn-info ">
+                <Link
+                  to={`/char/${character.char_id}`}
+                  className="btn btn-info "
+                >
                   Click for Details
-                </a>
+                </Link>
               </div>
             </div>
           ))}
@@ -53,8 +60,8 @@ function Home() {
       </div>
 
       <div className="text-center p-3">
-        {isLoading && <Loading />}
-        {hasNextPage && !isLoading && (
+        {status === "loading" && <Loading />}
+        {hasNextPage && status !== "loading" && (
           <button
             onClick={() => dispatch(fetchCharacters(nextPage))}
             className="btn btn-light text-center"
