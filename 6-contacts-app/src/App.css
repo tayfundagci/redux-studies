@@ -1,37 +1,99 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  font-size: calc(10px + 2vmin);
+  min-height: 100vh;
+  background-color: #282c34;
+}
+
+#container{
+  width: 400px;
+  
+  background-color: rgb(211, 226, 240);
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 3px 3px 2px rgb(200, 200, 200);
+  font-family: Arial, Helvetica, sans-serif
+}
+
+input{
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 5px;
+  border-radius: 7px;
+  border-width: 1px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 5px;
+}
+
+ul,li{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.list{
+  margin: 15px 0;
+}
+
+.list > li{
+  background-color: rgb(183, 203, 219);    
+  padding: 5px;
+  margin-bottom: 3px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 7px;
+}
+
+.btn{
+   display: flex;
+   justify-content: flex-end;
+   margin-top: 5px;
+}
+
+.btn > button{
+  padding: 4px;
+  width: 60px;
+}
+
+.contacts{
+  text-align: center;
+  margin-top: 0px;
+}
+
+.phonee{
+  margin-top: 5px;
+}
+
+.deleteBtn {
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-bottom: 2px;
+  width: 20px;
+  height: 22px;
+  background-color: orangered;
   color: white;
+  text-align: center;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.deleteAllBtn {
+  text-align: right;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.deleteAllBtn:hover {
+  text-decoration: underline;
+}
+
+.edit span { 
+  margin-left: 10px;
+  font-size: 12px;
+  cursor: pointer;
 }
